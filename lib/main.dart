@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'lists.dart';
 import 'notes.dart';
-import 'list_edit.dart';
+import 'note_edit.dart';
 
 void main() => runApp(const DictumApp());
 
@@ -18,8 +17,7 @@ class DictumApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
             '/': (context) => const HomeWidget(),
-            '/list_edit': (context) => const ListEditWidget(),
-            //'/note_edit': (context) => const NoteEdit(),
+            '/note_edit': (context) => const NoteEditWidget(),
         },
         theme: ThemeData(
             brightness: Brightness.light,
@@ -41,57 +39,14 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static List<Widget> _widgetOptions = <Widget>[
-    ListsGridView(),
-    NotesGridView(),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-  ];
-
-  static List<String> _titles = <String>[
-      "Lists",
-      "Notes",
-      "Share"
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_titles.elementAt(_selectedIndex)),
+        title: Text("Notes"),
       ),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'Lists',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.note),
-            label: 'Notes',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.share),
-            label: 'Share',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
+        child: NotesGridView(),
       ),
     );
   }
